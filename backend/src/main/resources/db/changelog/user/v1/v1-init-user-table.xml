@@ -5,35 +5,40 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="v1-002" author="Aymir">
-        <insert tableName="user">
+        <insert tableName="users">
+            <column name="id" value="4f5acd0d-547a-4ab5-b121-2f497c47c42a"/>
             <column name="full_name" value="John Doe 1"/>
             <column name="email" value="client1@example.com"/>
             <column name="password" value="password123"/>
-            <column name="role" value="CLIENT"/>
+            <column name="role" value="0"/>
         </insert>
-        <insert tableName="user">
+        <insert tableName="users">
+            <column name="id" value="4f2acd1d-547a-4ab5-b121-2f497c47c49a"/>
             <column name="full_name" value="John Doe 2"/>
             <column name="email" value="client2@example.com"/>
             <column name="password" value="password123"/>
-            <column name="role" value="CLIENT"/>
+            <column name="role" value="0"/>
         </insert>
-        <insert tableName="user">
+        <insert tableName="users">
+            <column name="id" value="9f5acd0d-547a-4ab5-b121-2f497c47c49a"/>
             <column name="full_name" value="John Doe 3"/>
             <column name="email" value="client3@example.com"/>
             <column name="password" value="password123"/>
-            <column name="role" value="CLIENT"/>
+            <column name="role" value="0"/>
         </insert>
-        <insert tableName="user">
+        <insert tableName="users">
+            <column name="id" value="3f5acd0d-547a-2ab5-b121-2f497c47c49a"/>
             <column name="full_name" value="Manager"/>
             <column name="email" value="manager1@example.com"/>
             <column name="password" value="password123"/>
-            <column name="role" value="MANAGER"/>
+            <column name="role" value="1"/>
         </insert>
-        <insert tableName="user">
+        <insert tableName="users">
+            <column name="id" value="1f3acd0d-547a-4ab1-b121-2f497c47c49a"/>
             <column name="full_name" value="Security"/>
             <column name="email" value="security1@example.com"/>
             <column name="password" value="password123"/>
-            <column name="role" value="SECURITY"/>
+            <column name="role" value="2"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

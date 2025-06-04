@@ -2,8 +2,8 @@ package com.project.backend.dto.auth;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -11,14 +11,14 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class RegisterDto {
-    @NotBlank(message = "FullName is required")
+    @NotBlank(message = "Укажите полное имя")
     private String fullName;
-    @NotBlank(message = "Email is required")
-    @Email(message = "Incorrect email format")
+    @NotBlank(message = "Укажите email")
+    @Email(message = "Некорректный формат email")
     private String email;
     @Nullable
     private String phoneNumber;
-    @NotBlank(message = "Password is required")
-    @Min(value = 6, message = "Min password length must be over than 6 symbol")
+    @NotBlank(message = "Укажите пароль")
+    @Size(min = 6, message = "Длина пароля должна быть больше 6 символов")
     private String password;
 }

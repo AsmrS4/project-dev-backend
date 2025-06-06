@@ -1,0 +1,25 @@
+package com.project.backend.dto.event;
+
+import com.project.backend.entities.event.Image;
+import com.project.backend.enums.EventStatus;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Data
+public class EventCreateDto {
+    @NotBlank(message = "Требуется название")
+    private String title;
+    @NotBlank(message = "Требуется описание")
+    private String description;
+    @NotBlank(message = "Требуется адрес")
+    private String address;
+    @NotBlank(message = "Укажите дату проведения")
+    private LocalDateTime dateTime;
+    @Size(min = 1, message = "Укажите хотя бы одно изображение")
+    private List<Image> images;
+}

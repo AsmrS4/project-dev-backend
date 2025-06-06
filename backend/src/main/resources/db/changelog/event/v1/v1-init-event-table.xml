@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <!-- Создание мероприятий -->
+    <changeSet id="insert_events" author="Aymir">
+        <insert tableName="events">
+            <column name="id" value="123e4567-e89b-12d3-a456-426655440000"/>
+            <column name="title" value="Мероприятие 1"/>
+            <column name="description" value="Описание мероприятия 1"/>
+            <column name="address" value="Адрес мероприятия 1"/>
+            <column name="status" value="0"/>
+            <column name="date" value="2025-06-01 12:00:00"/>
+            <column name="create_time" value="2025-05-01 10:00:00"/>
+        </insert>
+        <insert tableName="events">
+            <column name="id" value="123e4567-e89b-12d3-a456-426655440001"/>
+            <column name="title" value="Мероприятие 2"/>
+            <column name="description" value="Описание мероприятия 2"/>
+            <column name="address" value="Адрес мероприятия 2"/>
+            <column name="status" value="0"/>
+            <column name="date" value="2025-06-02 12:00:00"/>
+            <column name="create_time" value="2025-05-02 10:00:00"/>
+        </insert>
+        <insert tableName="events">
+            <column name="id" value="123e4567-e89b-12d3-a456-426655440002"/>
+            <column name="title" value="Мероприятие 3"/>
+            <column name="description" value="Описание мероприятия 3"/>
+            <column name="address" value="Адрес мероприятия 3"/>
+            <column name="status" value="0"/>
+            <column name="date" value="2025-06-03 12:00:00"/>
+            <column name="create_time" value="2025-05-03 10:00:00"/>
+        </insert>
+    </changeSet>
+
+    <!-- Создание изображений для мероприятий -->
+    <changeSet id="insert_images" author="Aymir">
+
+        <insert tableName="images">
+            <column name="id" value="1"/>
+            <column name="image_url" value="https://img.freepik.com/free-photo/nightlife-with-people-dancing-club_23-2149052695.jpg?semt=ais_hybrid&amp;w=740"/>
+            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440000"/>
+        </insert>
+        <insert tableName="images">
+            <column name="id" value="2"/>
+            <column name="image_url" value="https://s.momenty.org/static/upload/pub/014/007/14007/65be172d5cfaa0961ff3d7d5e4c2e6d2_980x0_1200.800.0.0.jpg"/>
+            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440000"/>
+        </insert>
+        <insert tableName="images">
+            <column name="id" value="3"/>
+            <column name="image_url" value="https://img.freepik.com/free-photo/nightlife-with-people-dancing-club_23-2149052695.jpg?semt=ais_hybrid&amp;w=740"/>
+            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440001"/>
+        </insert>
+        <insert tableName="images">
+            <column name="id" value="4"/>
+            <column name="image_url" value="https://s.momenty.org/static/upload/pub/014/007/14007/65be172d5cfaa0961ff3d7d5e4c2e6d2_980x0_1200.800.0.0.jpg"/>
+            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440001"/>
+        </insert>
+        <insert tableName="images">
+            <column name="id" value="5"/>
+            <column name="image_url" value="https://img.freepik.com/free-photo/nightlife-with-people-dancing-club_23-2149052695.jpg?semt=ais_hybrid&amp;w=740"/>
+            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440002"/>
+        </insert>
+        <insert tableName="images">
+            <column name="id" value="6"/>
+            <column name="image_url" value="https://s.momenty.org/static/upload/pub/014/007/14007/65be172d5cfaa0961ff3d7d5e4c2e6d2_980x0_1200.800.0.0.jpg"/>
+            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440002"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

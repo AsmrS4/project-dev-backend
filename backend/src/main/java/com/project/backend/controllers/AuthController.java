@@ -3,13 +3,14 @@ package com.project.backend.controllers;
 import com.project.backend.dto.auth.LoginDto;
 import com.project.backend.dto.auth.RegisterDto;
 import com.project.backend.services.auth.AuthService;
+import jakarta.security.auth.message.AuthException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("api/auth")
 public class AuthController {
     @Autowired
     private AuthService authService;
@@ -23,7 +24,7 @@ public class AuthController {
         return ResponseEntity.ok(authService.register(registerDto));
     }
     @PostMapping("/logout")
-    public ResponseEntity<?> logout() {
+    public ResponseEntity<?> logout() throws AuthException {
         return ResponseEntity.ok(authService.logout());
     }
 }

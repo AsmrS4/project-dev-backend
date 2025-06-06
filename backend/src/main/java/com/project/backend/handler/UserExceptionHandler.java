@@ -26,7 +26,7 @@ public class UserExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<String> handleAuthenticationException(AuthenticationException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"message\": \"Authentication required\", \"code\": \"" + HttpStatus.UNAUTHORIZED.value() + "\"}");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"message\":" + ex.getMessage() + " \"code\": \"" + HttpStatus.UNAUTHORIZED.value() + "\"}");
     }
 
     @ExceptionHandler(NotUniqueException.class)

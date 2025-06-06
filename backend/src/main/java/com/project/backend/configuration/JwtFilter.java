@@ -32,28 +32,26 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
-        String userEmail = null;
+        String userId = null;
         String jwt = null;
 
         if(authHeader!=null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
+            if (blackListRepository.existsByToken(jwt)) {
+                throw new UnauthorizedException("Токен в черном списке");
+            }
             try {
-                userEmail = accessTokenService.getUserLogin(jwt);
+                userId = accessTokenService.getUserId(jwt);
             }catch (ExpiredJwtException e) {
                 logger.debug("Token is expired");
+                throw new UnauthorizedException("Токен истек");
             }
         }
-        List<Token> blacklist = blackListRepository.getUsersTokens(userEmail);
-        blacklist.stream().map(token -> {
-            if(Objects.equals(token.getToken(), authHeader.substring(7))) {
-                throw new UnauthorizedException("Unauthorized");
-            }
-            return null;
-        });
 
-        if(userEmail!=null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+        if(userId!=null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                    userEmail, jwt, accessTokenService
+                    userId, jwt, accessTokenService
                     .getUserRoles(jwt).stream()
                     .map(role-> new SimpleGrantedAuthority(
                             role.toString()))

@@ -14,10 +14,13 @@ import java.util.UUID;
 @Repository
 public interface BlackListRepository extends CrudRepository<Token, Long> {
     boolean existsByToken(String token);
+
     Token getTokenByToken(String token);
+
     @Transactional
     @Modifying
-    @Query("SELECT t FROM Token t WHERE t.login = :login")
-    List<Token> getUsersTokens(@Param("login") String login);
+    @Query("SELECT t FROM Token t WHERE t.userId = :userId")
+    List<Token> getUsersTokens(@Param("userId") UUID userId);
+
 
 }

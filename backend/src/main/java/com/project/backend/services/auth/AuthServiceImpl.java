@@ -64,13 +64,13 @@ public class AuthServiceImpl implements AuthService{
     @Override
     public Object logout() {
         String token = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
-        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        String id = SecurityContextHolder.getContext().getAuthentication().getName();
         if(blackListRepository.existsByToken(token)) {
             throw new UnauthorizedException("Unauthorized");
         }
 
         Token blacklisted = new Token();
-        blacklisted.setLogin(login);
+        blacklisted.setUserId(UUID.fromString(id));
         blacklisted.setToken(token);
         blackListRepository.save(blacklisted);
 
@@ -86,7 +86,7 @@ public class AuthServiceImpl implements AuthService{
         List<Role> roles = new ArrayList<>();
         roles.add(user.getRole());
         return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
+                user.getId().toString(),
                 user.getPassword(),
                 roles.stream()
                         .map(role-> new SimpleGrantedAuthority(

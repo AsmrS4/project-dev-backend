@@ -26,7 +26,7 @@ public class TokenService {
         return new AccessToken(accessToken);
     }
 
-    public String getUserLogin(String token) {
+    public String getUserId(String token) {
         return getClaims(token, secretKey).getSubject();
     }
 

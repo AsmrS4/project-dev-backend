@@ -1,6 +1,5 @@
 package com.project.backend.configuration;
 
-import com.project.backend.utils.jwt.TokenService;
 import com.project.backend.utils.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,9 +24,11 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
+                                .requestMatchers("/api/auth/logout").authenticated()
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/history/event/**").hasAuthority("MANAGER")
                                 .requestMatchers("/api/user/**").authenticated()
+
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(c->c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

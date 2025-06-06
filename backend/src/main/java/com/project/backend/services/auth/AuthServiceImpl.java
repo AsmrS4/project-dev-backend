@@ -2,16 +2,21 @@ package com.project.backend.services.auth;
 
 import com.project.backend.dto.auth.LoginDto;
 import com.project.backend.dto.auth.RegisterDto;
+import com.project.backend.entities.auth.Token;
 import com.project.backend.entities.auth.User;
 import com.project.backend.enums.Role;
 import com.project.backend.exceptions.LoginFailedException;
 import com.project.backend.exceptions.NotUniqueException;
+import com.project.backend.exceptions.UnauthorizedException;
+import com.project.backend.repositories.BlackListRepository;
 import com.project.backend.repositories.UserRepository;
 import com.project.backend.utils.jwt.TokenService;
 import com.project.backend.utils.mapper.UserMapper;
+import jakarta.security.auth.message.AuthException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -26,10 +31,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService{
     private final UserRepository userRepository;
+    private final BlackListRepository blackListRepository;
     private final TokenService tokenService;
     private final UserMapper mapper;
-
-    private UUID generateUUID() {return UUID.randomUUID();}
 
     @Override
     public Object login(LoginDto loginDto) {
@@ -48,21 +52,29 @@ public class AuthServiceImpl implements AuthService{
         if(userRepository.existsByEmail(registerDto.getEmail())) {
             throw new NotUniqueException("Email " + registerDto.getEmail() + " занят");
         }
-        User user = mapper.map(registerDto);
-        user.setId(generateUUID());
 
+        User user = mapper.map(registerDto);
         userRepository.save(user);
 
-        LoginDto loginDto = new LoginDto();
-        loginDto.setEmail(user.getEmail());
-        loginDto.setPassword(user.getPassword());
+        LoginDto loginDto = mapper.map(user);
 
         return login(loginDto);
     }
 
     @Override
     public Object logout() {
-        return null;
+        String token = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(blackListRepository.existsByToken(token)) {
+            throw new UnauthorizedException("Unauthorized");
+        }
+
+        Token blacklisted = new Token();
+        blacklisted.setLogin(login);
+        blacklisted.setToken(token);
+        blackListRepository.save(blacklisted);
+
+        return true;
     }
 
     @Override
@@ -82,6 +94,4 @@ public class AuthServiceImpl implements AuthService{
                         .collect(Collectors.toList())
         );
     }
-
-
 }

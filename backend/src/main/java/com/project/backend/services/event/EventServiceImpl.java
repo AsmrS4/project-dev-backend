@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +50,12 @@ public class EventServiceImpl implements EventService{
     public List<EventDto> getEvents() {
         List<Event> events = eventRepository.getEvents();
         List<EventDto> eventDtos = new ArrayList<>();
-
+        eventDtos = events.stream().map(event -> {
+            Event item = eventRepository.findEventById(event.getId())
+                    .orElseThrow(()-> new UsernameNotFoundException("Событие не найдено"));
+            List<Image> images = imageRepository.getImages(event.getId());
+            return eventMapper.map(item, imageMapper.map(images));
+        }).collect(Collectors.toList());
         return eventDtos;
     }
     private UUID generateUUID() {

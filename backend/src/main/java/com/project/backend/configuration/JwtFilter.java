@@ -38,13 +38,13 @@ public class JwtFilter extends OncePerRequestFilter {
         if(authHeader!=null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
             if (blackListRepository.existsByToken(jwt)) {
-                throw new UnauthorizedException("Токен в черном списке");
+                throw new UnauthorizedException("Token is blacklisted");
             }
             try {
                 userId = accessTokenService.getUserId(jwt);
             }catch (ExpiredJwtException e) {
                 logger.debug("Token is expired");
-                throw new UnauthorizedException("Токен истек");
+                throw new UnauthorizedException("Token is expired");
             }
         }
 

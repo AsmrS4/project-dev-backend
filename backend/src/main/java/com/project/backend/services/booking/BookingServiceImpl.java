@@ -1,12 +1,11 @@
 package com.project.backend.services.booking;
 
 import com.project.backend.entities.booking.Booking;
-import com.project.backend.entities.event.Event;
 import com.project.backend.enums.EventStatus;
+import com.project.backend.exceptions.BadRequestException;
 import com.project.backend.exceptions.UnauthorizedException;
 import com.project.backend.repositories.BookingRepository;
 import com.project.backend.repositories.EventRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,11 +22,16 @@ public class BookingServiceImpl implements BookingService{
     private final BookingRepository bookingRepository;
     @Override
     public UUID bookTicket(UUID eventId) {
+        UUID userId = UUID.fromString(getAuthId());
         eventRepository.findEventById(eventId)
                 .orElseThrow(()-> new UsernameNotFoundException("Событие не найдено"));
+        Optional<Booking> book = bookingRepository.findBooking(eventId, userId);
+        if(book.isPresent() && book.get().getStatus() != EventStatus.CANCELED) {
+            throw new BadRequestException("You have already booked ticket on this event");
+        }
         Booking booking = new Booking();
         booking.setId(generateUUID());
-        booking.setUserId(UUID.fromString(getAuthId()));
+        booking.setUserId(userId);
         booking.setEventId(eventId);
 
         bookingRepository.save(booking);
@@ -38,8 +42,11 @@ public class BookingServiceImpl implements BookingService{
     public UUID cancelBooking(UUID bookingId) {
         Booking booking = bookingRepository.findBookingById(bookingId)
                 .orElseThrow(()-> new UsernameNotFoundException("Booking doesn't exist"));
+        if(!booking.getStatus().equals(EventStatus.ACTIVE)) {
+            throw new BadRequestException("Booking already cancelled");
+        }
         booking.setStatus(EventStatus.CANCELED);
-        //TODO:здесь будет рассылка на почту об изменении статуса
+        bookingRepository.save(booking);
         return bookingId;
     }
 

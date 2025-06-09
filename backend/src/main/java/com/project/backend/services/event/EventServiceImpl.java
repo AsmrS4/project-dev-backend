@@ -76,6 +76,7 @@ public class EventServiceImpl implements EventService{
             throw new BadRequestException("Event status isn't active");
         }
         event.setStatus(EventStatus.CANCELED);
+        //TODO:здесь будет рассылка на почту об изменении статуса
         eventRepository.save(event);
         return true;
     }

@@ -25,4 +25,8 @@ public interface BookingRepository extends CrudRepository<Booking, UUID> {
     @Modifying
     @Query("SELECT b FROM Booking b WHERE b.eventId = :eventId")
     List<Booking> getEventsBooking(@Param("eventId") UUID eventId);
+
+    @Transactional
+    @Query("SELECT b FROM Booking b WHERE b.eventId =:eventId AND b.userId =:userId")
+    Optional<Booking> findBooking(@Param("eventId") UUID eventId, @Param("userId") UUID userId);
 }

@@ -37,6 +37,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/api/event/**").hasAuthority("MANAGER")
                                 .requestMatchers(HttpMethod.PUT,"/api/event/**").hasAuthority("MANAGER")
                                 .requestMatchers(HttpMethod.DELETE,"/api/event/**").hasAuthority("MANAGER")
+                                .requestMatchers("/api/booking/**").hasAuthority("CLIENT")
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 )

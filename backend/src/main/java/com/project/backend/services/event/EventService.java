@@ -13,5 +13,5 @@ public interface EventService {
     UUID editEventDetails(UUID id, EventUpdateDto updateDto);
     List<EventDto> getEvents();
     Object cancelEvent(UUID id);
-
+    List<EventDto> getArchievedEvents();
 }

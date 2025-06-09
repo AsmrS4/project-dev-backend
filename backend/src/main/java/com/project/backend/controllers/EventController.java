@@ -36,6 +36,4 @@ public class EventController {
     public ResponseEntity<?> cancelEvent(@PathVariable UUID id) {
         return ResponseEntity.ok(eventService.cancelEvent(id));
     }
-
-
 }

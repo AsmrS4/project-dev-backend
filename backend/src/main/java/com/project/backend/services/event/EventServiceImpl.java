@@ -91,6 +91,18 @@ public class EventServiceImpl implements EventService{
             return eventMapper.map(item, imageMapper.map(images));
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public List<EventDto> getArchievedEvents() {
+        List<Event> archive = eventRepository.getArchievedEvents();
+        return archive.stream().map(event -> {
+            Event item = eventRepository.findEventById(event.getId())
+                    .orElseThrow(()-> new UsernameNotFoundException("Событие не найдено"));
+            List<Image> images = imageRepository.getImages(event.getId());
+            return eventMapper.map(item, imageMapper.map(images));
+        }).collect(Collectors.toList());
+    }
+
     private UUID generateUUID() {
         return UUID.randomUUID();
     }

@@ -1,20 +1,18 @@
 package com.project.backend.repositories;
 
-import com.project.backend.entities.event.Event;
 import com.project.backend.entities.event.Image;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-public interface EventRepository extends CrudRepository<Event, UUID> {
-    Optional<Event> findEventById(UUID id);
+@Repository
+public interface ImageRepository extends CrudRepository<Image, Long> {
     @Modifying
-    @Query("SELECT e FROM Event e")
-    List<Event> getEvents();
-
+    @Query("SELECT i FROM Image i WHERE i.event.id = :eventId")
+    List<Image> getImages(@Param("eventId") UUID eventId);
 }

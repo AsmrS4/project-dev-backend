@@ -14,7 +14,7 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="image_url" type="varchar(255)"/>
+            <column name="image_url" type="text"/>
             <column name="event_id" type="uuid">
                 <constraints nullable="false" foreignKeyName="fk_image_event" referencedTableName="events" referencedColumnNames="id"/>
             </column>

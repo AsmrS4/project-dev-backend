@@ -4,6 +4,7 @@ import com.project.backend.entities.event.Image;
 import com.project.backend.enums.EventStatus;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -18,8 +19,9 @@ public class EventCreateDto {
     private String description;
     @NotBlank(message = "Требуется адрес")
     private String address;
-    @NotBlank(message = "Укажите дату проведения")
+    @NotNull(message = "Укажите дату проведения")
     private LocalDateTime dateTime;
+    @NotNull(message = "Укажите хотя бы одно изображение")
     @Size(min = 1, message = "Укажите хотя бы одно изображение")
-    private List<Image> images;
+    private List<ImageCreateDto> images;
 }

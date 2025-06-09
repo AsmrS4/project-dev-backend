@@ -14,6 +14,6 @@ public class AuthEntryPoint  implements AuthenticationEntryPoint {
     public void commence(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, AuthenticationException authException) throws IOException, jakarta.servlet.ServletException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        response.getOutputStream().println("{\"message\": \"Authentication required\"}");
+        response.getOutputStream().println("{\"message\": \"Ошибка авторизации\"}");
     }
 }

@@ -17,5 +17,5 @@ public class EventDto {
     private String address;
     private LocalDateTime dateTime;
     private LocalDateTime createTime;
-    private List<Image> images;
+    private List<ImageDto> images;
 }

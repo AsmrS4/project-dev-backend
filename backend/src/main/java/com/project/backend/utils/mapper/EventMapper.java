@@ -38,7 +38,7 @@ public class EventMapper {
         eventDto.setAddress(event.getAddress());
         eventDto.setDateTime(event.getDateTime());
         eventDto.setCreateTime(event.getCreateTime());
-
+        eventDto.setStatus(event.getStatus());
         eventDto.setImages(images);
 
         return eventDto;

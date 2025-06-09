@@ -6,6 +6,8 @@ import com.project.backend.dto.event.EventUpdateDto;
 import com.project.backend.dto.event.ImageCreateDto;
 import com.project.backend.entities.event.Event;
 import com.project.backend.entities.event.Image;
+import com.project.backend.enums.EventStatus;
+import com.project.backend.exceptions.BadRequestException;
 import com.project.backend.repositories.EventRepository;
 import com.project.backend.repositories.ImageRepository;
 import com.project.backend.utils.mapper.EventMapper;
@@ -68,7 +70,14 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public Object cancelEvent(UUID id) {
-        return null;
+        Event event = eventRepository.findEventById(id)
+                .orElseThrow(()-> new UsernameNotFoundException("Событие не найдено"));
+        if(!event.getStatus().equals(EventStatus.ACTIVE)) {
+            throw new BadRequestException("Event status isn't active");
+        }
+        event.setStatus(EventStatus.CANCELED);
+        eventRepository.save(event);
+        return true;
     }
 
     @Override

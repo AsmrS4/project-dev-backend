@@ -2,6 +2,7 @@ package com.project.backend.utils.mapper;
 
 import com.project.backend.dto.event.EventCreateDto;
 import com.project.backend.dto.event.EventDto;
+import com.project.backend.dto.event.EventUpdateDto;
 import com.project.backend.dto.event.ImageDto;
 import com.project.backend.entities.event.Event;
 import com.project.backend.entities.event.Image;
@@ -21,6 +22,14 @@ public class EventMapper {
         return event;
     }
 
+    public Event map(Event event, EventUpdateDto updateDto){
+        event.setTitle(updateDto.getTitle());
+        event.setDescription(updateDto.getDescription());
+        event.setAddress(updateDto.getAddress());
+        event.setDateTime(updateDto.getDateTime());
+        return event;
+    }
+
     public EventDto map(Event event, List<ImageDto> images) {
         EventDto eventDto = new EventDto();
         eventDto.setId(event.getId());
@@ -29,7 +38,7 @@ public class EventMapper {
         eventDto.setAddress(event.getAddress());
         eventDto.setDateTime(event.getDateTime());
         eventDto.setCreateTime(event.getCreateTime());
-
+        eventDto.setStatus(event.getStatus());
         eventDto.setImages(images);
 
         return eventDto;

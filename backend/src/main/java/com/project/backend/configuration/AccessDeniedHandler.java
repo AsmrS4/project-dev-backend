@@ -16,6 +16,6 @@ public class AccessDeniedHandler implements org.springframework.security.web.acc
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpStatus.FORBIDDEN.value());
-        response.getOutputStream().println("{\"message\": \"У вас нет прав к этому ресурсу\"}");
+        response.getOutputStream().println("{\"message\": \"Access denied\"}");
     }
 }

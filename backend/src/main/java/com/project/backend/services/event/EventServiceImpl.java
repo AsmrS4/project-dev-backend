@@ -2,6 +2,7 @@ package com.project.backend.services.event;
 
 import com.project.backend.dto.event.EventCreateDto;
 import com.project.backend.dto.event.EventDto;
+import com.project.backend.dto.event.EventUpdateDto;
 import com.project.backend.dto.event.ImageCreateDto;
 import com.project.backend.entities.event.Event;
 import com.project.backend.entities.event.Image;
@@ -36,7 +37,6 @@ public class EventServiceImpl implements EventService{
             newImage.setEvent(event);
             imageRepository.save(newImage);
         }
-
         return event.getId();
     }
     @Override
@@ -46,17 +46,41 @@ public class EventServiceImpl implements EventService{
         List<Image> images = imageRepository.getImages(id);
         return eventMapper.map(event, imageMapper.map(images));
     }
+
+    @Override
+    public UUID editEventDetails(UUID id, EventUpdateDto updateDto) {
+        Event event = eventRepository.findEventById(id)
+                .orElseThrow(()-> new UsernameNotFoundException("Событие не найдено"));
+        List<Image> images = imageRepository.getImages(id);
+        for(Image image: images) {
+            imageRepository.delete(image);
+        }
+        List<ImageCreateDto> newImages = updateDto.getImages();
+        for(ImageCreateDto imageCreateDto: newImages) {
+            Image newImage = new Image();
+            newImage.setImageUrl(imageCreateDto.getImageUrl());
+            newImage.setEvent(event);
+            imageRepository.save(newImage);
+        }
+        eventRepository.save(eventMapper.map(event, updateDto));
+        return event.getId();
+    }
+
+    @Override
+    public Object cancelEvent(UUID id) {
+        return null;
+    }
+
     @Override
     public List<EventDto> getEvents() {
         List<Event> events = eventRepository.getEvents();
-        List<EventDto> eventDtos = new ArrayList<>();
-        eventDtos = events.stream().map(event -> {
+
+        return events.stream().map(event -> {
             Event item = eventRepository.findEventById(event.getId())
                     .orElseThrow(()-> new UsernameNotFoundException("Событие не найдено"));
             List<Image> images = imageRepository.getImages(event.getId());
             return eventMapper.map(item, imageMapper.map(images));
         }).collect(Collectors.toList());
-        return eventDtos;
     }
     private UUID generateUUID() {
         return UUID.randomUUID();

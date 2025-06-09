@@ -2,6 +2,7 @@ package com.project.backend.controllers;
 
 import com.project.backend.dto.event.EventCreateDto;
 import com.project.backend.dto.event.EventDto;
+import com.project.backend.dto.event.EventUpdateDto;
 import com.project.backend.services.event.EventService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,5 +31,10 @@ public class EventController {
     public ResponseEntity<?> createEvent(@RequestBody @Valid EventCreateDto createDto) {
         return ResponseEntity.ok(eventService.createEvent(createDto));
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<UUID> editEvent(@PathVariable UUID id, @RequestBody @Valid EventUpdateDto updateDto){
+        return ResponseEntity.ok(eventService.editEventDetails(id, updateDto));
+    }
+
 
 }

@@ -34,7 +34,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/api/auth/logout").authenticated()
-                                .requestMatchers(HttpMethod.POST,"/api/event/**").hasAuthority("MANAGER")
+                                .requestMatchers(HttpMethod.POST, "/api/event/**").hasAuthority("MANAGER")
+                                .requestMatchers(HttpMethod.PUT,"/api/event/**").hasAuthority("MANAGER")
+                                .requestMatchers(HttpMethod.DELETE,"/api/event/**").hasAuthority("MANAGER")
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 )

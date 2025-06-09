@@ -1,6 +1,7 @@
 package com.project.backend.handler;
 
 
+import com.project.backend.exceptions.BadRequestException;
 import com.project.backend.exceptions.LoginFailedException;
 import com.project.backend.exceptions.NotUniqueException;
 import com.project.backend.exceptions.UnauthorizedException;
@@ -46,6 +47,13 @@ public class UserExceptionHandler {
     }
     @ExceptionHandler(LoginFailedException.class)
     ResponseEntity<Map<String, Object>>  handleLoginFailedException(LoginFailedException ex) {
+        Map<String, Object> errors = new HashMap<>();
+        errors.put("status: ", HttpStatus.BAD_REQUEST.value());
+        errors.put("error: ", ex.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(BadRequestException.class)
+    ResponseEntity<Map<String, Object>>  handleBadRequestException(BadRequestException ex) {
         Map<String, Object> errors = new HashMap<>();
         errors.put("status: ", HttpStatus.BAD_REQUEST.value());
         errors.put("error: ", ex.getMessage());

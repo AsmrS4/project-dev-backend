@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     private String getAuthId() {
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
         if(id == null) {
-            throw new UnauthorizedException("Ошибка авторизации");
+            throw new UnauthorizedException("Authorization is required");
         }
         return id;
     }

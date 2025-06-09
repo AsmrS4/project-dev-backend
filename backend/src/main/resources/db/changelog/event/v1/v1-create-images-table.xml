@@ -16,7 +16,8 @@
             </column>
             <column name="image_url" type="text"/>
             <column name="event_id" type="uuid">
-                <constraints nullable="false" foreignKeyName="fk_image_event" referencedTableName="events" referencedColumnNames="id"/>
+                <constraints nullable="false" foreignKeyName="fk_image_event"
+                             referencedTableName="events" referencedColumnNames="id" deleteCascade="true"/>
             </column>
         </createTable>
     </changeSet>

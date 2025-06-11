@@ -18,8 +18,8 @@ public interface BookingRepository extends CrudRepository<Booking, UUID> {
     Optional<Booking> findBookingById(UUID id);
     @Transactional
     @Modifying
-    @Query("SELECT b FROM Booking b WHERE b.id = :bookingId")
-    List<Booking> getUsersBooking(@Param("bookingId") UUID bookingId);
+    @Query("SELECT b FROM Booking b WHERE b.userId = :userId")
+    List<Booking> getUsersBooking(@Param("userId") UUID userId);
 
     @Transactional
     @Modifying

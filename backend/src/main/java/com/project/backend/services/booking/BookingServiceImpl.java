@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -48,6 +49,11 @@ public class BookingServiceImpl implements BookingService{
         booking.setStatus(EventStatus.CANCELED);
         bookingRepository.save(booking);
         return bookingId;
+    }
+
+    @Override
+    public List<Booking> getUserBookings() {
+        return null;
     }
 
     @Override

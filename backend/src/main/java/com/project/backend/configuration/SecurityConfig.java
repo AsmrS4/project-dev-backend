@@ -1,5 +1,6 @@
 package com.project.backend.configuration;
 
+import com.project.backend.utils.mapper.BookingMapper;
 import com.project.backend.utils.mapper.EventMapper;
 import com.project.backend.utils.mapper.ImageMapper;
 import com.project.backend.utils.mapper.UserMapper;
@@ -63,5 +64,10 @@ public class SecurityConfig {
     @Bean
     public ImageMapper imageMapper() {
         return new ImageMapper();
+    }
+
+    @Bean
+    public BookingMapper bookingMapper() {
+        return new BookingMapper();
     }
 }

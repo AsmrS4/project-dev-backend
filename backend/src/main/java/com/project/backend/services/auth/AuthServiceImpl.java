@@ -66,7 +66,7 @@ public class AuthServiceImpl implements AuthService{
         String token = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
         if(blackListRepository.existsByToken(token)) {
-            throw new UnauthorizedException("Unauthorized");
+            throw new UnauthorizedException("Вы не авторизованы");
         }
 
         Token blacklisted = new Token();

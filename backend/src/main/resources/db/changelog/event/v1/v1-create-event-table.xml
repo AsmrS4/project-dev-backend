@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="v1-001" author="Aymir">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="events"/>
+            </not>
+        </preConditions>
+        <createTable tableName="events">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" type="varchar(255)"/>
+            <column name="description" type="text"/>
+            <column name="address" type="varchar(255)"/>
+            <column name="status" type="smallint"
+                    defaultValue="0"/>
+            <column name="date" type="timestamp"/>
+            <column name="create_time" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="update_time" type="timestamp"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -4,6 +4,7 @@ import com.project.backend.dto.booking.BookingDto;
 import com.project.backend.dto.event.EventDto;
 import com.project.backend.dto.review.ReviewDto;
 import com.project.backend.dto.review.ReviewRequest;
+import com.project.backend.dto.review.ReviewResponse;
 import com.project.backend.entities.booking.Booking;
 import com.project.backend.entities.event.Event;
 import com.project.backend.entities.event.Image;
@@ -63,11 +64,16 @@ public class HistoryServiceImpl implements HistoryService{
     }
 
     @Override
-    public List<ReviewDto> getEventReviews(UUID eventId) {
+    public ReviewResponse getEventReviews(UUID eventId) {
         Event event = eventRepository.findEventById(eventId)
                 .orElseThrow(()-> new UsernameNotFoundException("Event with id: " + eventId + " not found"));
         List<Review> reviews = reviewRepository.findEventReviews(eventId);
-        return reviewMapper.map(reviews);
+        List<ReviewDto> mappedReviews = reviewMapper.map(reviews);
+        int totalRating = mappedReviews.stream()
+                .map(ReviewDto::getRating)
+                .reduce(0, Integer::sum);
+        totalRating = totalRating/mappedReviews.size();
+        return new ReviewResponse(mappedReviews, totalRating);
     }
 
     @Override

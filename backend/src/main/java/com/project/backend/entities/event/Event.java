@@ -1,5 +1,6 @@
 package com.project.backend.entities.event;
 
+import com.project.backend.entities.booking.Booking;
 import com.project.backend.enums.EventStatus;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -31,4 +32,6 @@ public class Event {
     private LocalDateTime updateTime = null;
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> bookings;
 }

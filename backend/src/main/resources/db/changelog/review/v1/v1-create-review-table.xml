@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="v1-001" author="Aymir">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="review"/>
+            </not>
+        </preConditions>
+        <createTable tableName="review">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="event_id" type="uuid">
+                <constraints  nullable="true" foreignKeyName="fk_image_event"
+                             referencedTableName="events" referencedColumnNames="id" />
+            </column>
+            <column name="author_id" type="uuid">
+                <constraints  nullable="true" foreignKeyName="fk_image_author"
+                          referencedTableName="users" referencedColumnNames="id" />
+            </column>
+            <column name="content" type="text"/>
+            <column name="rating" type="int"/>
+            <column name="create_time" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -1,14 +1,15 @@
 package com.project.backend.configuration;
 
-import com.project.backend.utils.mapper.BookingMapper;
-import com.project.backend.utils.mapper.EventMapper;
-import com.project.backend.utils.mapper.ImageMapper;
-import com.project.backend.utils.mapper.UserMapper;
+import com.project.backend.utils.mapper.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
+@EnableAsync
 public class SecurityConfig {
 
     private final JwtFilter filter;
@@ -54,6 +56,10 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Bean
+    public ReviewMapper reviewMapper() {
+        return new ReviewMapper();
+    }
 
     @Bean
     public UserMapper userMapper() {

@@ -2,6 +2,7 @@ package com.project.backend.services.booking;
 
 import com.project.backend.dto.booking.BookingDto;
 import com.project.backend.entities.booking.Booking;
+import com.project.backend.entities.event.Event;
 import com.project.backend.enums.EventStatus;
 import com.project.backend.exceptions.BadRequestException;
 import com.project.backend.exceptions.UnauthorizedException;
@@ -28,7 +29,7 @@ public class BookingServiceImpl implements BookingService{
     @Override
     public UUID bookTicket(UUID eventId) {
         UUID userId = UUID.fromString(getAuthId());
-        eventRepository.findEventById(eventId)
+        Event event = eventRepository.findEventById(eventId)
                 .orElseThrow(()-> new UsernameNotFoundException("Событие не найдено"));
         Optional<Booking> book = bookingRepository.findBooking(eventId, userId);
         if(book.isPresent() && book.get().getStatus() != EventStatus.CANCELED) {
@@ -37,7 +38,7 @@ public class BookingServiceImpl implements BookingService{
         Booking booking = new Booking();
         booking.setId(generateUUID());
         booking.setUserId(userId);
-        booking.setEventId(eventId);
+        booking.setEvent(event);
 
         bookingRepository.save(booking);
         return booking.getId();

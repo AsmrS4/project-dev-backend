@@ -4,6 +4,7 @@ import com.project.backend.dto.event.EventCreateDto;
 import com.project.backend.dto.event.EventDto;
 import com.project.backend.dto.event.EventUpdateDto;
 import com.project.backend.services.event.EventService;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,15 +26,15 @@ public class EventController {
         return ResponseEntity.ok(eventService.getEventDetails(id));
     }
     @PostMapping
-    public ResponseEntity<?> createEvent(@RequestBody @Valid EventCreateDto createDto) {
+    public ResponseEntity<?> createEvent(@RequestBody @Valid EventCreateDto createDto) throws MessagingException {
         return ResponseEntity.ok(eventService.createEvent(createDto));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<UUID> editEvent(@PathVariable UUID id, @RequestBody @Valid EventUpdateDto updateDto){
+    public ResponseEntity<UUID> editEvent(@PathVariable UUID id, @RequestBody @Valid EventUpdateDto updateDto) throws MessagingException {
         return ResponseEntity.ok(eventService.editEventDetails(id, updateDto));
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> cancelEvent(@PathVariable UUID id) {
+    public ResponseEntity<?> cancelEvent(@PathVariable UUID id) throws MessagingException {
         return ResponseEntity.ok(eventService.cancelEvent(id));
     }
 }

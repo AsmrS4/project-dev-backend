@@ -1,6 +1,8 @@
 package com.project.backend.controllers;
 
+import com.project.backend.dto.review.ReviewRequest;
 import com.project.backend.services.history.HistoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,26 +16,26 @@ public class HistoryController {
     private final HistoryService historyService;
     @GetMapping("/event")
     public ResponseEntity<?> getEventsHistory() {
-        return null;
+        return ResponseEntity.ok(historyService.getEventsHistory());
     }
     @GetMapping("/event/{id}")
     public ResponseEntity<?> getEventHistoryDetails(@PathVariable UUID id) {
-        return null;
+        return ResponseEntity.ok(historyService.getEventHistoryDetails(id));
     }
 
     @GetMapping("/event/{id}/reviews")
     public ResponseEntity<?> getEventReviews(@PathVariable UUID id) {
-        return null;
+        return ResponseEntity.ok(historyService.getEventReviews(id));
     }
 
     @GetMapping("/tickets")
     public ResponseEntity<?> getVisitedEvents() {
-        return null;
+        return ResponseEntity.ok(historyService.getVisitedEvents());
     }
 
-    @PostMapping("/event/{id}/review")
-    public ResponseEntity<?> createReview() {
-        return null;
+    @PostMapping("/tickets/{id}/review")
+    public ResponseEntity<?> createReview(@PathVariable UUID id, @RequestBody @Valid ReviewRequest request) {
+        return ResponseEntity.ok(historyService.createReview(id, request));
     }
 
 }

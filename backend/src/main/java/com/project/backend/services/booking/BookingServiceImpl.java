@@ -57,7 +57,7 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public List<BookingDto> getUserBookings() {
-        List<Booking> bookings = bookingRepository.getUsersBooking(UUID.fromString(getAuthId()));
+        List<Booking> bookings = bookingRepository.getActiveBooking(UUID.fromString(getAuthId()));
         return mapper.map(bookings);
     }
 

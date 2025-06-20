@@ -17,6 +17,9 @@ public interface EventRepository extends CrudRepository<Event, UUID> {
     @Query("SELECT e FROM Event e")
     List<Event> getEvents();
 
+    @Query("SELECT e FROM Event e WHERE e.status = 0")
+    List<Event> getActiveEvents();
+
     @Modifying
     @Query("SELECT e FROM Event e WHERE e.status = 2")
     List<Event> getArchievedEvents();

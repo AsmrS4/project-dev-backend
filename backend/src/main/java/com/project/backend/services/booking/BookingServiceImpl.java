@@ -1,16 +1,20 @@
 package com.project.backend.services.booking;
 
+import com.project.backend.dto.booking.BookingDto;
 import com.project.backend.entities.booking.Booking;
+import com.project.backend.entities.event.Event;
 import com.project.backend.enums.EventStatus;
 import com.project.backend.exceptions.BadRequestException;
 import com.project.backend.exceptions.UnauthorizedException;
 import com.project.backend.repositories.BookingRepository;
 import com.project.backend.repositories.EventRepository;
+import com.project.backend.utils.mapper.BookingMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,10 +25,11 @@ public class BookingServiceImpl implements BookingService{
 
     private final EventRepository eventRepository;
     private final BookingRepository bookingRepository;
+    private final BookingMapper mapper;
     @Override
     public UUID bookTicket(UUID eventId) {
         UUID userId = UUID.fromString(getAuthId());
-        eventRepository.findEventById(eventId)
+        Event event = eventRepository.findEventById(eventId)
                 .orElseThrow(()-> new UsernameNotFoundException("Событие не найдено"));
         Optional<Booking> book = bookingRepository.findBooking(eventId, userId);
         if(book.isPresent() && book.get().getStatus() != EventStatus.CANCELED) {
@@ -33,7 +38,7 @@ public class BookingServiceImpl implements BookingService{
         Booking booking = new Booking();
         booking.setId(generateUUID());
         booking.setUserId(userId);
-        booking.setEventId(eventId);
+        booking.setEvent(event);
 
         bookingRepository.save(booking);
         return booking.getId();
@@ -52,13 +57,18 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
-    public List<Booking> getUserBookings() {
-        return null;
+    public List<BookingDto> getUserBookings() {
+        List<Booking> bookings = bookingRepository.getActiveBooking(UUID.fromString(getAuthId()));
+        return mapper.map(bookings);
     }
 
     @Override
-    public Booking getBookingDetails(UUID bookingId) {
-        return null;
+    public BookingDto getBookingDetails(UUID bookingId) {
+        Optional<Booking> booking = bookingRepository.findBookingById(bookingId);
+        if(booking.isEmpty()) {
+            throw new BadRequestException("Booking with id " + bookingId + "wasn't found");
+        }
+        return mapper.map(booking.get());
     }
 
     private UUID generateUUID() {

@@ -30,6 +30,6 @@ public class BookingController {
 
     @GetMapping("/tickets")
     public ResponseEntity<List<?>> getAllActiveBooking(){
-        return null;
+        return ResponseEntity.ok(bookingService.getUserBookings());
     }
 }

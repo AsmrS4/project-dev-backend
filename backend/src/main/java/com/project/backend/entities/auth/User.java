@@ -26,6 +26,8 @@ public class User implements UserDetails {
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
+    @Column(name="image")
+    private String image = null;
     @Column(name = "fullName")
     private String fullName;
     @Column(name="email")

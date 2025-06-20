@@ -37,4 +37,9 @@ public class EventController {
     public ResponseEntity<?> cancelEvent(@PathVariable UUID id) throws MessagingException {
         return ResponseEntity.ok(eventService.cancelEvent(id));
     }
+
+    @GetMapping("/{id}/guests")
+    public ResponseEntity<?> getEventGuests(@PathVariable UUID id) {
+        return ResponseEntity.ok(eventService.getGuests(id));
+    }
 }

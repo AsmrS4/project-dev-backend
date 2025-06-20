@@ -3,6 +3,7 @@ package com.project.backend.services.event;
 import com.project.backend.dto.event.EventCreateDto;
 import com.project.backend.dto.event.EventDto;
 import com.project.backend.dto.event.EventUpdateDto;
+import com.project.backend.dto.user.UserCardDto;
 import jakarta.mail.MessagingException;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface EventService {
     List<EventDto> getEvents();
     Object cancelEvent(UUID id) throws MessagingException;
     List<EventDto> getArchievedEvents();
+    List<UserCardDto> getGuests(UUID eventId);
 }

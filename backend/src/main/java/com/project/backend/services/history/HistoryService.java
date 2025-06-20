@@ -11,8 +11,8 @@ import java.util.UUID;
 public interface HistoryService {
     List<EventDto> getEventsHistory();
     EventDto getEventHistoryDetails(UUID eventId);
-    List<ReviewDto> getEventReviews();
+    List<ReviewDto> getEventReviews(UUID eventId);
     List<BookingDto> getVisitedEvents();
 
-    UUID createReview(UUID reviewId, ReviewRequest request);
+    UUID createReview(UUID eventId, ReviewRequest request);
 }

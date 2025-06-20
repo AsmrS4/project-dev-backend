@@ -4,10 +4,12 @@ import com.project.backend.dto.event.EventCreateDto;
 import com.project.backend.dto.event.EventDto;
 import com.project.backend.dto.event.EventUpdateDto;
 import com.project.backend.dto.event.ImageCreateDto;
+import com.project.backend.dto.user.UserCardDto;
 import com.project.backend.entities.event.Event;
 import com.project.backend.entities.event.Image;
 import com.project.backend.enums.EventStatus;
 import com.project.backend.exceptions.BadRequestException;
+import com.project.backend.repositories.BookingRepository;
 import com.project.backend.repositories.EventRepository;
 import com.project.backend.repositories.ImageRepository;
 import com.project.backend.services.sender.EmailSenderService;
@@ -32,6 +34,7 @@ import java.util.stream.Collectors;
 public class EventServiceImpl implements EventService{
     private final EventRepository eventRepository;
     private final ImageRepository imageRepository;
+    private final BookingRepository bookingRepository;
     private final EmailSenderService emailSenderService;
     private final EventMapper eventMapper;
     private final ImageMapper imageMapper;
@@ -113,6 +116,11 @@ public class EventServiceImpl implements EventService{
             List<Image> images = imageRepository.getImages(event.getId());
             return eventMapper.map(item, imageMapper.map(images));
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserCardDto> getGuests(UUID eventId) {
+        return bookingRepository.findSubscribersByEventId(eventId);
     }
 
     private UUID generateUUID() {

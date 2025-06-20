@@ -23,7 +23,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 @EnableAsync
-@EnableScheduling
 public class SecurityConfig {
 
     private final JwtFilter filter;

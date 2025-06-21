@@ -17,6 +17,7 @@ public class UserMapper {
         user.setPhoneNumber(registerDto.getPhoneNumber());
         user.setPassword(registerDto.getPassword());
         user.setId(UUID.randomUUID());
+        user.setImage(null);
         return user;
     }
 
@@ -31,6 +32,7 @@ public class UserMapper {
         user.setFullName(updateDto.getFullName());
         user.setEmail(updateDto.getEmail());
         user.setPhoneNumber(updateDto.getPhoneNumber());
+        user.setImage(updateDto.getImage());
         return user;
     }
 
@@ -42,6 +44,7 @@ public class UserMapper {
         userDto.setPhoneNumber(user.getPhoneNumber());
         userDto.setRole(user.getRole());
         userDto.setCreateTime(user.getCreateTime());
+        userDto.setImage(user.getImage());
 
         return userDto;
     }

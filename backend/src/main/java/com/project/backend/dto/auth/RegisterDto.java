@@ -16,7 +16,7 @@ public class RegisterDto {
     @Email(message = "Некорректный формат email")
     private String email;
     @Nullable
-    private String phoneNumber;
+    private String phoneNumber = null;
     @NotBlank(message = "Укажите пароль")
     @Size(min = 6, message = "Длина пароля должна быть больше 6 символов")
     private String password;

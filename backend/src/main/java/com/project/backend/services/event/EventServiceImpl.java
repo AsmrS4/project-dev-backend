@@ -97,7 +97,7 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public List<EventDto> getEvents() {
-        List<Event> events = eventRepository.getEvents();
+        List<Event> events = eventRepository.getActiveEvents();
 
         return events.stream().map(event -> {
             Event item = eventRepository.findEventById(event.getId())

@@ -12,7 +12,7 @@ public class BookingMapper {
         dto.setId(booking.getId());
         dto.setUserId(booking.getUserId());
         dto.setEventId(booking.getEvent().getId());
-        dto.setStatus(dto.getStatus());
+        dto.setStatus(booking.getStatus());
         return dto;
     }
     public List<BookingDto> map(List<Booking> bookings) {

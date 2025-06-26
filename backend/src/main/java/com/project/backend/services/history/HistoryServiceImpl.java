@@ -16,7 +16,6 @@ import com.project.backend.repositories.BookingRepository;
 import com.project.backend.repositories.EventRepository;
 import com.project.backend.repositories.ImageRepository;
 import com.project.backend.repositories.ReviewRepository;
-import com.project.backend.services.booking.BookingService;
 import com.project.backend.utils.mapper.BookingMapper;
 import com.project.backend.utils.mapper.EventMapper;
 import com.project.backend.utils.mapper.ImageMapper;
@@ -56,7 +55,7 @@ public class HistoryServiceImpl implements HistoryService{
     public EventDto getEventHistoryDetails(UUID eventId) {
         Event event = eventRepository.findEventById(eventId)
                 .orElseThrow(()-> new UsernameNotFoundException("Event with id: " + eventId + " not found"));
-        if(!event.getStatus().equals(EventStatus.ARCHIEVED)) {
+        if(!event.getStatus().equals(EventStatus.ARCHIVED)) {
             throw new BadRequestException("Event still active");
         }
         List<Image> images = imageRepository.getImages(eventId);
@@ -86,7 +85,7 @@ public class HistoryServiceImpl implements HistoryService{
     public UUID createReview(UUID eventId, ReviewRequest request) {
         Event event = eventRepository.findEventById(eventId)
                 .orElseThrow(()-> new UsernameNotFoundException("Event with id: " + eventId + " not found"));
-        if(!event.getStatus().equals(EventStatus.ARCHIEVED)) {
+        if(!event.getStatus().equals(EventStatus.ARCHIVED)) {
             throw new BadRequestException("Event still active");
         }
         Review review = reviewMapper.map(generateUUID(), eventId, UUID.fromString(getAuthId()), request);

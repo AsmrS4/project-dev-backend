@@ -51,6 +51,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/api/auth/logout").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/api/event/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/event/**").hasAuthority("MANAGER")
                                 .requestMatchers(HttpMethod.PUT,"/api/event/**").hasAuthority("MANAGER")
                                 .requestMatchers(HttpMethod.DELETE,"/api/event/**").hasAuthority("MANAGER")

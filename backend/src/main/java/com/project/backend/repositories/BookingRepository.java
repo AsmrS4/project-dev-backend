@@ -29,7 +29,7 @@ public interface BookingRepository extends CrudRepository<Booking, UUID> {
 
     @Transactional
     @Modifying
-    @Query("SELECT b FROM Booking b WHERE b.userId = :userId AND b.status = 2")
+    @Query("SELECT b FROM Booking b WHERE b.userId = :userId AND (b.status = 2 OR b.status = 1)")
     List<Booking> getVisitedBooking(@Param("userId") UUID userId);
 
     @Transactional
@@ -41,7 +41,7 @@ public interface BookingRepository extends CrudRepository<Booking, UUID> {
     List<String> getSubscribersEmails(@Param("eventId") UUID eventId);
 
     @Transactional
-    @Query("SELECT b FROM Booking b WHERE b.event.id =:eventId AND b.userId =:userId")
+    @Query("SELECT b FROM Booking b WHERE b.event.id =:eventId AND b.userId =:userId AND b.status = 0")
     Optional<Booking> findBooking(@Param("eventId") UUID eventId, @Param("userId") UUID userId);
 
     @Query("SELECT new com.project.backend.dto.user.UserCardDto(u.fullName, u.id, u.image) FROM Booking b JOIN User u ON b.userId = u.id WHERE b.event.id = :eventId")

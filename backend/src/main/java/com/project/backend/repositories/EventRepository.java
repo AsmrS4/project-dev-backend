@@ -17,10 +17,10 @@ public interface EventRepository extends CrudRepository<Event, UUID> {
     @Query("SELECT e FROM Event e")
     List<Event> getEvents();
 
-    @Query("SELECT e FROM Event e WHERE e.status = 0")
+    @Query("SELECT e FROM Event e WHERE e.status = 0 ORDER BY e.dateTime ASC")
     List<Event> getActiveEvents();
 
     @Modifying
-    @Query("SELECT e FROM Event e WHERE e.status = 2")
+    @Query("SELECT e FROM Event e WHERE e.status = 2 ORDER BY e.dateTime ASC")
     List<Event> getArchievedEvents();
 }

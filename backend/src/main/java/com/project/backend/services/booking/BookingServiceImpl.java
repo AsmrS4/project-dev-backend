@@ -75,6 +75,15 @@ public class BookingServiceImpl implements BookingService{
         return mapper.map(booking.get());
     }
 
+    @Override
+    public boolean checkHasActiveBooking(UUID eventId) {
+        UUID userId = UUID.fromString(getAuthId());
+        Event event = eventRepository.findEventById(eventId)
+                .orElseThrow(()-> new UsernameNotFoundException("Событие не найдено"));
+        Optional<Booking> book = bookingRepository.findBooking(eventId, userId);
+        return book.isPresent();
+    }
+
     private UUID generateUUID() {
         return UUID.randomUUID();
     }

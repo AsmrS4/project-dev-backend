@@ -17,11 +17,11 @@
             </column>
             <column name="event_id" type="uuid">
                 <constraints  nullable="true" foreignKeyName="fk_image_event"
-                             referencedTableName="events" referencedColumnNames="id" />
+                             referencedTableName="events" referencedColumnNames="id" deleteCascade="true" />
             </column>
             <column name="author_id" type="uuid">
                 <constraints  nullable="true" foreignKeyName="fk_image_author"
-                          referencedTableName="users" referencedColumnNames="id" />
+                          referencedTableName="users" referencedColumnNames="id"  deleteCascade="true"/>
             </column>
             <column name="content" type="text"/>
             <column name="rating" type="int"/>

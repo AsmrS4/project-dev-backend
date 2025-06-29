@@ -1,7 +1,9 @@
 package com.project.backend.utils.schedule;
 
+import com.project.backend.entities.booking.Booking;
 import com.project.backend.entities.event.Event;
 import com.project.backend.enums.EventStatus;
+import com.project.backend.repositories.BookingRepository;
 import com.project.backend.repositories.EventRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.List;
 @EnableScheduling
 public class EventScheduler {
     private final EventRepository eventRepository;
+    private final BookingRepository bookingRepository;
     private final Logger LOGGER = LoggerFactory.getLogger(EventScheduler.class);
     @PostConstruct
     public void init() {
@@ -35,8 +38,13 @@ public class EventScheduler {
         List<Event> events = eventRepository.getActiveEvents();
         for (Event event : events) {
             if (event.getDateTime().isBefore(now)) {
-                event.setStatus(EventStatus.ARCHIEVED);
+                event.setStatus(EventStatus.ARCHIVED);
                 eventRepository.save(event);
+                List<Booking> bookings = bookingRepository.getEventsBooking(event.getId());
+                for(Booking booking: bookings) {
+                    booking.setStatus(EventStatus.ARCHIVED);
+                    bookingRepository.save(booking);
+                }
                 LOGGER.info("Mark event with id: {} as archived", event.getId());
             }
         }

@@ -11,4 +11,6 @@ public interface BookingService {
     UUID cancelBooking(UUID bookingId);
     BookingDto getBookingDetails(UUID bookingId);
     List<BookingDto> getUserBookings();
+
+    boolean checkHasActiveBooking(UUID eventId);
 }

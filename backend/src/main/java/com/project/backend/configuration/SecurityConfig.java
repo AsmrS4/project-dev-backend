@@ -42,7 +42,14 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(c -> c.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(List.of("http://localhost:5000"));
+                    config.setAllowedOrigins(List.of(
+                            "http://localhost:5000",
+                            "http://localhost:5001",
+                            "http://localhost:5002",
+                            "http://localhost:5003",
+                            "http://localhost:5004",
+                            "http://localhost:5005"
+                            ));
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     config.setAllowedHeaders(List.of("*"));
                     config.setAllowCredentials(true);
@@ -51,10 +58,11 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/api/auth/logout").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/api/event/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/event/**").hasAuthority("MANAGER")
                                 .requestMatchers(HttpMethod.PUT,"/api/event/**").hasAuthority("MANAGER")
                                 .requestMatchers(HttpMethod.DELETE,"/api/event/**").hasAuthority("MANAGER")
-                                .requestMatchers("/api/history/event/**").hasAuthority("MANAGER")
+                                .requestMatchers("/api/history/event/**").hasAnyAuthority("MANAGER","CLIENT")
                                 .requestMatchers("/api/history/tickets/**").hasAuthority("CLIENT")
                                 .requestMatchers("/api/booking/**").hasAuthority("CLIENT")
                                 .requestMatchers("/api/auth/**").permitAll()

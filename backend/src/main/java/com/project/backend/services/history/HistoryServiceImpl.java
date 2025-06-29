@@ -16,7 +16,6 @@ import com.project.backend.repositories.BookingRepository;
 import com.project.backend.repositories.EventRepository;
 import com.project.backend.repositories.ImageRepository;
 import com.project.backend.repositories.ReviewRepository;
-import com.project.backend.services.booking.BookingService;
 import com.project.backend.utils.mapper.BookingMapper;
 import com.project.backend.utils.mapper.EventMapper;
 import com.project.backend.utils.mapper.ImageMapper;
@@ -26,6 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -56,7 +56,7 @@ public class HistoryServiceImpl implements HistoryService{
     public EventDto getEventHistoryDetails(UUID eventId) {
         Event event = eventRepository.findEventById(eventId)
                 .orElseThrow(()-> new UsernameNotFoundException("Event with id: " + eventId + " not found"));
-        if(!event.getStatus().equals(EventStatus.ARCHIEVED)) {
+        if(!event.getStatus().equals(EventStatus.ARCHIVED)) {
             throw new BadRequestException("Event still active");
         }
         List<Image> images = imageRepository.getImages(eventId);
@@ -68,12 +68,17 @@ public class HistoryServiceImpl implements HistoryService{
         Event event = eventRepository.findEventById(eventId)
                 .orElseThrow(()-> new UsernameNotFoundException("Event with id: " + eventId + " not found"));
         List<Review> reviews = reviewRepository.findEventReviews(eventId);
+
+
         List<ReviewDto> mappedReviews = reviewMapper.map(reviews);
+        if(reviews.isEmpty()) {
+            return new ReviewResponse(mappedReviews, 0.0);
+        }
         int totalRating = mappedReviews.stream()
                 .map(ReviewDto::getRating)
                 .reduce(0, Integer::sum);
-        totalRating = totalRating/mappedReviews.size();
-        return new ReviewResponse(mappedReviews, totalRating);
+        double rating = (double) totalRating /mappedReviews.size();
+        return new ReviewResponse(mappedReviews, rating);
     }
 
     @Override
@@ -86,7 +91,7 @@ public class HistoryServiceImpl implements HistoryService{
     public UUID createReview(UUID eventId, ReviewRequest request) {
         Event event = eventRepository.findEventById(eventId)
                 .orElseThrow(()-> new UsernameNotFoundException("Event with id: " + eventId + " not found"));
-        if(!event.getStatus().equals(EventStatus.ARCHIEVED)) {
+        if(!event.getStatus().equals(EventStatus.ARCHIVED)) {
             throw new BadRequestException("Event still active");
         }
         Review review = reviewMapper.map(generateUUID(), eventId, UUID.fromString(getAuthId()), request);

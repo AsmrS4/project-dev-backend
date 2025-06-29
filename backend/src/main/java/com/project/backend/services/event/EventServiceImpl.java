@@ -25,6 +25,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -103,8 +104,9 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public List<EventDto> getEvents() {
-        List<Event> events = eventRepository.getActiveEvents();
+    public List<EventDto> getEvents(LocalDateTime startDate, LocalDateTime endDate) {
+
+        List<Event> events = eventRepository.getActiveEventsBetweenDates(startDate, endDate);
 
         return events.stream().map(event -> {
             Event item = eventRepository.findEventById(event.getId())

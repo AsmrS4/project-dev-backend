@@ -18,8 +18,8 @@ public class JacksonConfig {
 
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule()); // Регистрирует поддержку Java Time
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // Отключает представление дат в виде Unix timestamp
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return objectMapper;
     }
 }

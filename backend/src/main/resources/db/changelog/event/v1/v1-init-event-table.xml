@@ -8,29 +8,60 @@
     <changeSet id="insert_events" author="Aymir">
         <insert tableName="events">
             <column name="id" value="123e4567-e89b-12d3-a456-426655440000"/>
-            <column name="title" value="Мероприятие 1"/>
-            <column name="description" value="Описание мероприятия 1"/>
-            <column name="address" value="Адрес мероприятия 1"/>
+            <column name="title" value="Рэп трип"/>
+            <column name="description" value="РЭП-ТРЕК НА ВСЮ КАТУШКУ! 🎤
+
+🗣️ БИТЫ ЛОМАТЬСЯ СТАНУТ ПОД МОТИВНЫЕ РИМЫ!
+💯 АНДЕРГРАУНДНАЯ АТМОСФЕРА И ЭНЕРГИЯ ПРОЛИВНЫХ ХИП-ХОП-БИТОВ!
+
+🛑 Участие абсолютно бесплатное!
+🔊 Самые горячие треки, рэп-баттлы и DJ-сеты!
+🖤 Фристайл-челленджи и конкурсы для гостей вечера!
+"/>
+            <column name="address" value="пр. Ленина, д.45"/>
             <column name="status" value="0"/>
-            <column name="date" value="2025-06-01 12:00:00"/>
+            <column name="date" value="2025-07-02 12:00:00"/>
             <column name="create_time" value="2025-05-01 10:00:00"/>
         </insert>
         <insert tableName="events">
             <column name="id" value="123e4567-e89b-12d3-a456-426655440001"/>
-            <column name="title" value="Мероприятие 2"/>
-            <column name="description" value="Описание мероприятия 2"/>
-            <column name="address" value="Адрес мероприятия 2"/>
+            <column name="title" value="ANIME COSPLAY PARTY"/>
+            <column name="description" value="Погрузитесь в магический мир любимых персонажей, почувствуйте себя героями популярных аниме-шоу и манги! Вас ждут яркие костюмы, захватывающие соревнования, веселые развлечения и море позитивных эмоций.
+
+✨ Программа вечеринки включает:
+
+Яркий парад косплееров с награждением победителей
+Показ увлекательных аниме-эпизодов и сериалов
+Игровые зоны с викторинами и квестами
+Фотозоны для красивых снимков в костюмах
+Танцевальное шоу и караоке
+Приходите в своем любимом образе и делитесь радостью общения с единомышленниками. Покажите миру свою страсть к искусству аниме и получите шанс выиграть памятные подарки и сувениры!
+
+Присоединяйтесь к нашей дружной команде поклонников японского анимэ, наслаждайтесь атмосферой магии и приключений, откройтесь новому опыту и заведите друзей среди увлечённых фанатов!"/>
+            <column name="address" value="пр. Кироваб д.2"/>
             <column name="status" value="0"/>
             <column name="date" value="2025-06-02 12:00:00"/>
             <column name="create_time" value="2025-05-02 10:00:00"/>
         </insert>
         <insert tableName="events">
             <column name="id" value="123e4567-e89b-12d3-a456-426655440002"/>
-            <column name="title" value="Мероприятие 3"/>
-            <column name="description" value="Описание мероприятия 3"/>
-            <column name="address" value="Адрес мероприятия 3"/>
+            <column name="title" value="HAWAI 2.0"/>
+            <column name="description" value="🌴🌺 ГАВАЙСКАЯ ВЕЧЕРИНКА 2.0: ОТКРОЙ ДЛЯ СЕБЯ СОЛНЕЧНУЮ ЭКСПРЕССИЮ! 🌞🎶
+
+✨ Новый уровень веселья ждет тебя на нашем острове счастья!\n🌻 Эксклюзивные мастер-классы танцев хула и традиционного искусства татуировок!
+
+🍹 Уникальные авторские коктейли с ананасовым вкусом и настоящими зонтиками!
+🎤 Живые выступления лучших диджеев и музыкантов острова!
+🪟 Игры, шоу-программы и потрясающие сюрпризы от организаторов!
+
+📆 Дата праздника: 1 июля 2025
+🕰 Старт вечеринки: 20:00
+📍 Где встретимся: Сибирский ботанический сад
+
+🔥 Торопись присоединиться к яркому приключению и зарядись энергией солнечного рая!"/>
+            <column name="address" value="пр. Ленина, д.45"/>
             <column name="status" value="0"/>
-            <column name="date" value="2025-06-03 12:00:00"/>
+            <column name="date" value="2025-07-03 12:00:00"/>
             <column name="create_time" value="2025-05-03 10:00:00"/>
         </insert>
     </changeSet>
@@ -40,33 +71,28 @@
 
         <insert tableName="images">
             <column name="id" value="1000000"/>
-            <column name="image_url" value="https://img.freepik.com/free-photo/nightlife-with-people-dancing-club_23-2149052695.jpg?semt=ais_hybrid&amp;w=740"/>
+            <column name="image_url" value="https://petrograph.ru/wp-content/uploads/2024/02/stil-reperov-2000-2.webp"/>
             <column name="event_id" value="123e4567-e89b-12d3-a456-426655440000"/>
         </insert>
         <insert tableName="images">
             <column name="id" value="1000002"/>
-            <column name="image_url" value="https://s.momenty.org/static/upload/pub/014/007/14007/65be172d5cfaa0961ff3d7d5e4c2e6d2_980x0_1200.800.0.0.jpg"/>
+            <column name="image_url" value="https://the-flow.ru/uploads/images/resize/830x0/adaptiveResize/10/63/03/74/62/aa4761340cd7.jpg"/>
             <column name="event_id" value="123e4567-e89b-12d3-a456-426655440000"/>
         </insert>
         <insert tableName="images">
             <column name="id" value="1000003"/>
-            <column name="image_url" value="https://img.freepik.com/free-photo/nightlife-with-people-dancing-club_23-2149052695.jpg?semt=ais_hybrid&amp;w=740"/>
-            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440001"/>
+            <column name="image_url" value="https://www.zabava63.ru/upload/iblock/a57/a57f9dd862d64c89c31b893a687f1071.jpg"/>
+            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440002"/>
         </insert>
         <insert tableName="images">
             <column name="id" value="1000004"/>
-            <column name="image_url" value="https://s.momenty.org/static/upload/pub/014/007/14007/65be172d5cfaa0961ff3d7d5e4c2e6d2_980x0_1200.800.0.0.jpg"/>
-            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440001"/>
+            <column name="image_url" value="https://organizator.ru/wp-content/uploads/2023/05/konkursy-na-gavajskuyu-vecherinku-foto-7.jpeg"/>
+            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440002"/>
         </insert>
         <insert tableName="images">
             <column name="id" value="1000005"/>
-            <column name="image_url" value="https://img.freepik.com/free-photo/nightlife-with-people-dancing-club_23-2149052695.jpg?semt=ais_hybrid&amp;w=740"/>
-            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440002"/>
-        </insert>
-        <insert tableName="images">
-            <column name="id" value="1000006"/>
-            <column name="image_url" value="https://s.momenty.org/static/upload/pub/014/007/14007/65be172d5cfaa0961ff3d7d5e4c2e6d2_980x0_1200.800.0.0.jpg"/>
-            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440002"/>
+            <column name="image_url" value="https://gamers-life.ru/wp-content/uploads/2024/07/kosplej_po_anime_magicheskaya_bitva_1-2048x1365-1.jpg"/>
+            <column name="event_id" value="123e4567-e89b-12d3-a456-426655440001"/>
         </insert>
     </changeSet>
 

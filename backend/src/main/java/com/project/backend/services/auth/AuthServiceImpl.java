@@ -52,6 +52,9 @@ public class AuthServiceImpl implements AuthService{
         if(userRepository.existsByEmail(registerDto.getEmail())) {
             throw new NotUniqueException("Email " + registerDto.getEmail() + " занят");
         }
+        if(userRepository.existsByPhoneNumber(registerDto.getPhoneNumber())) {
+            throw new NotUniqueException("Телефон " + registerDto.getPhoneNumber() + " занят");
+        }
 
         User user = mapper.map(registerDto);
         userRepository.save(user);

@@ -28,6 +28,10 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.cancelBooking(bookingId));
     }
 
+    @GetMapping("/check/{eventId}")
+    public ResponseEntity<?> checkHasActiveBooking(@PathVariable UUID eventId) {
+        return ResponseEntity.ok(bookingService.checkHasActiveBooking(eventId));
+    }
     @GetMapping("/tickets")
     public ResponseEntity<List<?>> getAllActiveBooking(){
         return ResponseEntity.ok(bookingService.getUserBookings());

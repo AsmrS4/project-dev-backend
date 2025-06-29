@@ -32,9 +32,13 @@ public class BookingServiceImpl implements BookingService{
         Event event = eventRepository.findEventById(eventId)
                 .orElseThrow(()-> new UsernameNotFoundException("Событие не найдено"));
         Optional<Booking> book = bookingRepository.findBooking(eventId, userId);
-        if(book.isPresent() && book.get().getStatus() != EventStatus.CANCELED) {
+        if(!event.getStatus().equals(EventStatus.ACTIVE)) {
+            throw new BadRequestException("Event status isn't active");
+        }
+        if(book.isPresent() && book.get().getStatus() == EventStatus.ACTIVE) {
             throw new BadRequestException("You have already booked ticket on this event");
         }
+
         Booking booking = new Booking();
         booking.setId(generateUUID());
         booking.setUserId(userId);
@@ -69,6 +73,15 @@ public class BookingServiceImpl implements BookingService{
             throw new BadRequestException("Booking with id " + bookingId + "wasn't found");
         }
         return mapper.map(booking.get());
+    }
+
+    @Override
+    public boolean checkHasActiveBooking(UUID eventId) {
+        UUID userId = UUID.fromString(getAuthId());
+        Event event = eventRepository.findEventById(eventId)
+                .orElseThrow(()-> new UsernameNotFoundException("Событие не найдено"));
+        Optional<Booking> book = bookingRepository.findBooking(eventId, userId);
+        return book.isPresent();
     }
 
     private UUID generateUUID() {

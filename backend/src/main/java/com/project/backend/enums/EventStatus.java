@@ -3,5 +3,5 @@ package com.project.backend.enums;
 public enum EventStatus {
     ACTIVE,
     CANCELED,
-    ARCHIEVED,
+    ARCHIVED,
 }

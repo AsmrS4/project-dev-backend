@@ -13,6 +13,8 @@ public class ReviewDto {
     private UUID id;
     private UUID authorId;
     private UUID eventId;
+    private String fullName;
+    private String imageUrl;
     private String content;
     private int rating;
     private LocalDateTime createTime;

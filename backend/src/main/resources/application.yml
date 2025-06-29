@@ -34,5 +34,5 @@ spring:
 
 jwt:
   secret: hits2025972303hits2025972303hits20259723032025hits
-  lifetime: 30m
+  lifetime: 300m
 

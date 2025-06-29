@@ -44,6 +44,6 @@ public interface BookingRepository extends CrudRepository<Booking, UUID> {
     @Query("SELECT b FROM Booking b WHERE b.event.id =:eventId AND b.userId =:userId AND b.status = 0")
     Optional<Booking> findBooking(@Param("eventId") UUID eventId, @Param("userId") UUID userId);
 
-    @Query("SELECT new com.project.backend.dto.user.UserCardDto(u.fullName, u.id, u.image) FROM Booking b JOIN User u ON b.userId = u.id WHERE b.event.id = :eventId")
+    @Query("SELECT new com.project.backend.dto.user.UserCardDto(u.fullName, u.id, u.image, u.role) FROM Booking b JOIN User u ON b.userId = u.id WHERE b.event.id = :eventId AND b.status = 0")
     List<UserCardDto> findSubscribersByEventId(@Param("eventId") UUID eventId);
 }

@@ -34,9 +34,23 @@
             <column name="role" value="1"/>
         </insert>
         <insert tableName="users">
+            <column name="id" value="3f5acd0d-547a-2ab5-b121-2f497c47c44a"/>
+            <column name="full_name" value="Manager 2"/>
+            <column name="email" value="manager2@example.com"/>
+            <column name="password" value="password123"/>
+            <column name="role" value="1"/>
+        </insert>
+        <insert tableName="users">
             <column name="id" value="1f3acd0d-547a-4ab1-b121-2f497c47c49a"/>
             <column name="full_name" value="Security"/>
             <column name="email" value="security1@example.com"/>
+            <column name="password" value="password123"/>
+            <column name="role" value="2"/>
+        </insert>
+        <insert tableName="users">
+            <column name="id" value="1f3acd0d-547a-4ab1-b121-2f497c47c42a"/>
+            <column name="full_name" value="Security"/>
+            <column name="email" value="security2@example.com"/>
             <column name="password" value="password123"/>
             <column name="role" value="2"/>
         </insert>

@@ -7,9 +7,11 @@ import com.project.backend.services.event.EventService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @RestController
@@ -18,8 +20,10 @@ import java.util.UUID;
 public class EventController {
     private final EventService eventService;
     @GetMapping
-    public ResponseEntity<?> getEvents() {
-        return ResponseEntity.ok(eventService.getEvents());
+    public ResponseEntity<?> getEvents(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+        return ResponseEntity.ok(eventService.getEvents(startDate, endDate));
     }
     @GetMapping("/{id}")
     public ResponseEntity<EventDto> getEventDetails(@PathVariable UUID id){

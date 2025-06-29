@@ -72,13 +72,13 @@ public class HistoryServiceImpl implements HistoryService{
 
         List<ReviewDto> mappedReviews = reviewMapper.map(reviews);
         if(reviews.isEmpty()) {
-            return new ReviewResponse(mappedReviews, 0);
+            return new ReviewResponse(mappedReviews, 0.0);
         }
         int totalRating = mappedReviews.stream()
                 .map(ReviewDto::getRating)
                 .reduce(0, Integer::sum);
-        totalRating = totalRating/mappedReviews.size();
-        return new ReviewResponse(mappedReviews, totalRating);
+        double rating = (double) totalRating /mappedReviews.size();
+        return new ReviewResponse(mappedReviews, rating);
     }
 
     @Override

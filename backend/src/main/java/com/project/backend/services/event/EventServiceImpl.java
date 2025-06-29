@@ -5,6 +5,7 @@ import com.project.backend.dto.event.EventDto;
 import com.project.backend.dto.event.EventUpdateDto;
 import com.project.backend.dto.event.ImageCreateDto;
 import com.project.backend.dto.user.UserCardDto;
+import com.project.backend.entities.booking.Booking;
 import com.project.backend.entities.event.Event;
 import com.project.backend.entities.event.Image;
 import com.project.backend.enums.EventStatus;
@@ -92,6 +93,12 @@ public class EventServiceImpl implements EventService{
         event.setStatus(EventStatus.CANCELED);
         emailSenderService.sendEventChangesNotification(event);
         eventRepository.save(event);
+        List<Booking> bookingList = bookingRepository.getEventsBooking(id);
+        for(Booking booking : bookingList) {
+            booking.setStatus(EventStatus.CANCELED);
+            bookingRepository.save(booking);
+        }
+
         return true;
     }
 

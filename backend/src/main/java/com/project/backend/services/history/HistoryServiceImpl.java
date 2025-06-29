@@ -25,6 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -67,7 +68,12 @@ public class HistoryServiceImpl implements HistoryService{
         Event event = eventRepository.findEventById(eventId)
                 .orElseThrow(()-> new UsernameNotFoundException("Event with id: " + eventId + " not found"));
         List<Review> reviews = reviewRepository.findEventReviews(eventId);
+
+
         List<ReviewDto> mappedReviews = reviewMapper.map(reviews);
+        if(reviews.isEmpty()) {
+            return new ReviewResponse(mappedReviews, 0);
+        }
         int totalRating = mappedReviews.stream()
                 .map(ReviewDto::getRating)
                 .reduce(0, Integer::sum);

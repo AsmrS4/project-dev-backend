@@ -1,6 +1,5 @@
 package com.project.backend.configuration;
 
-import com.project.backend.entities.auth.Token;
 import com.project.backend.exceptions.UnauthorizedException;
 import com.project.backend.repositories.BlackListRepository;
 import com.project.backend.utils.jwt.TokenService;
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component

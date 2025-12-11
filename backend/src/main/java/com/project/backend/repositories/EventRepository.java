@@ -1,7 +1,6 @@
 package com.project.backend.repositories;
 
 import com.project.backend.entities.event.Event;
-import com.project.backend.entities.event.Image;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -5,7 +5,6 @@ import com.project.backend.dto.event.EventDto;
 import com.project.backend.dto.event.EventUpdateDto;
 import com.project.backend.dto.event.ImageDto;
 import com.project.backend.entities.event.Event;
-import com.project.backend.entities.event.Image;
 
 import java.util.List;
 import java.util.UUID;

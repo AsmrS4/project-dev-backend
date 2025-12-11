@@ -1,8 +1,6 @@
 package com.project.backend.services.sender;
 
 import com.project.backend.dto.event.EventUpdateDto;
-import com.project.backend.entities.auth.User;
-import com.project.backend.entities.booking.Booking;
 import com.project.backend.entities.event.Event;
 import com.project.backend.repositories.BookingRepository;
 import com.project.backend.repositories.UserRepository;

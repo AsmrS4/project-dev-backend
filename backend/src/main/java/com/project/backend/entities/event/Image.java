@@ -3,8 +3,6 @@ package com.project.backend.entities.event;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
 @Entity
 @Table(name = "images")

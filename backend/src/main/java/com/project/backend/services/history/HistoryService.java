@@ -2,7 +2,6 @@ package com.project.backend.services.history;
 
 import com.project.backend.dto.booking.BookingDto;
 import com.project.backend.dto.event.EventDto;
-import com.project.backend.dto.review.ReviewDto;
 import com.project.backend.dto.review.ReviewRequest;
 import com.project.backend.dto.review.ReviewResponse;
 

@@ -1,10 +1,8 @@
 package com.project.backend.utils.mapper;
 
-import com.project.backend.dto.event.EventCreateDto;
 import com.project.backend.dto.review.ReviewDto;
 import com.project.backend.dto.review.ReviewRequest;
 import com.project.backend.entities.auth.User;
-import com.project.backend.entities.event.Event;
 import com.project.backend.entities.review.Review;
 import com.project.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

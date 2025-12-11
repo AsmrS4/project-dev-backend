@@ -12,7 +12,6 @@ import com.project.backend.repositories.BlackListRepository;
 import com.project.backend.repositories.UserRepository;
 import com.project.backend.utils.jwt.TokenService;
 import com.project.backend.utils.mapper.UserMapper;
-import jakarta.security.auth.message.AuthException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

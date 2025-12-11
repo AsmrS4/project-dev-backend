@@ -4,6 +4,7 @@ import com.project.backend.dto.event.EventCreateDto;
 import com.project.backend.dto.event.EventDto;
 import com.project.backend.dto.event.EventUpdateDto;
 import com.project.backend.services.event.EventService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/event")
 @RequiredArgsConstructor
+@Tag(name = "Events", description = "Эндпоинты для получения информации о мероприятиях")
 public class EventController {
     private final EventService eventService;
     @GetMapping

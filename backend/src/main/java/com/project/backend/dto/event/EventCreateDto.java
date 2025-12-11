@@ -1,8 +1,5 @@
 package com.project.backend.dto.event;
 
-import com.project.backend.entities.event.Image;
-import com.project.backend.enums.EventStatus;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

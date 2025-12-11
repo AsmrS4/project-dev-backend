@@ -1,7 +1,6 @@
 package com.project.backend.dto.booking;
 
 import com.project.backend.enums.EventStatus;
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.util.UUID;

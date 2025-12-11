@@ -1,10 +1,6 @@
 package com.project.backend.dto.event;
 
-import com.project.backend.entities.event.Event;
-import com.project.backend.entities.event.Image;
 import com.project.backend.enums.EventStatus;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDateTime;

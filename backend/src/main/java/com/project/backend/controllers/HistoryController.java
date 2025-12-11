@@ -2,6 +2,7 @@ package com.project.backend.controllers;
 
 import com.project.backend.dto.review.ReviewRequest;
 import com.project.backend.services.history.HistoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/history")
 @RequiredArgsConstructor
+@Tag(name = "History", description = "Эндпоинты для просмотра истории прошедших мероприятий")
 public class HistoryController {
     private final HistoryService historyService;
     @GetMapping("/event")

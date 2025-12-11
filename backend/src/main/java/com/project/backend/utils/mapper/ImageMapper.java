@@ -1,8 +1,6 @@
 package com.project.backend.utils.mapper;
 
-import com.project.backend.dto.event.ImageCreateDto;
 import com.project.backend.dto.event.ImageDto;
-import com.project.backend.entities.event.Event;
 import com.project.backend.entities.event.Image;
 
 import java.util.List;
